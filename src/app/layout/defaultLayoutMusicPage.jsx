@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Input, Select, AutoComplete } from "antd";
 import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
 import useLoading from "../hook/useLoading";
@@ -7,6 +7,8 @@ import "../assets/css/layout/defaultLayoutMusicPage.css";
 import "react-h5-audio-player/lib/styles.css";
 import { Content } from "antd/lib/layout/layout";
 import AudioPlayer from "react-h5-audio-player";
+import { useDispatch } from "react-redux";
+import { GetListMusic } from "../redux/action/playMusic";
 const { Header, Footer, Sider } = Layout;
 const { Option } = Select;
 function getItem(label, key, icon) {
@@ -30,6 +32,13 @@ const DefaultLayoutMusicPage = () => {
   const { isLoading } = useLoading(true, 3800);
   const [changePage, setChangePage] = useState("1");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GetListMusic());
+  }, []);
+
+  const state = useState((state) => state);
+  console.log(state);
 
   // --------------------------------------------------------------------------------
   return (
@@ -91,11 +100,13 @@ const DefaultLayoutMusicPage = () => {
             style={{
               padding: "16px",
               backgroundColor: "#001529",
+              overflow: "scroll",
             }}
           >
             <div
               style={{
                 backgroundColor: "#001529",
+                maxHeight: "10pc",
               }}
             >
               {isLoading && <LoadingLoad />}
