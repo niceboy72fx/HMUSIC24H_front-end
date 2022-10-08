@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { GetListMusic } from "../action/playMusic";
+import { GetListMusicReducer } from "./getListMusic";
 const RootReducer = combineReducers({
-  GetListMusic,
+  GetListMusicReducer,
 });
 export default RootReducer;

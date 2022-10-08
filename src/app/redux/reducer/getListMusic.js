@@ -2,7 +2,7 @@ import { ActionConstant } from "../../constant/common";
 
 //----------------------------------------------------------------
 const initialState = {
-  provider: null,
+  provider: {},
 };
 
 export const GetListMusicReducer = (state = initialState, action) => {
@@ -12,6 +12,8 @@ export const GetListMusicReducer = (state = initialState, action) => {
     case ActionConstant.GETSUCCESS:
       return { ...state, provider: action.payload };
     case ActionConstant.GETFAIL:
-      return { ...state, provider: "nodata" };
+      return { ...state };
+    default:
+      return state;
   }
 };

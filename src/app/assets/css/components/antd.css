@@ -1,0 +1,15 @@
+/*-------slider----------------*/
+.ant-card-bordered {
+  background-color: #111111;
+  border: 1px solid black;
+}
+
+.ant-card-body {
+  background-color: #161616;
+  height: fit-content;
+  border: none;
+}
+/* 
+.ant-card-actions {
+  background: black;
+} */

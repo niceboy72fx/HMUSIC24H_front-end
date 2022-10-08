@@ -11,10 +11,10 @@ const contentStyle = {
 export const Carousels = () => {
   const settings = {
     infinite: true,
-    speed: 500,
     fade: true,
     cssEase: "linear",
     arrows: false,
+    autoplaySpeed: 1700,
   };
   return (
     <Slider autoplay className="w-100" {...settings}>

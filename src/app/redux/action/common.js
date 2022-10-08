@@ -1,16 +1,17 @@
 import { ActionConstant } from "../../constant/common";
 
-export function GetListMusic() {
+export const GetListMusic = () => {
   return {
     type: ActionConstant.GETALLMUSICACTION,
   };
-}
+};
 
-export function GetListMusicSuccess() {
+export const GetListMusicSuccess = (params) => {
   return {
     type: ActionConstant.GETSUCCESS,
+    payload: params,
   };
-}
+};
 
 export function GetListMusicFailed() {
   return {

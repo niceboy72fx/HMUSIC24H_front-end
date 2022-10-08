@@ -7,8 +7,9 @@ import "../assets/css/layout/defaultLayoutMusicPage.css";
 import "react-h5-audio-player/lib/styles.css";
 import { Content } from "antd/lib/layout/layout";
 import AudioPlayer from "react-h5-audio-player";
-import { useDispatch } from "react-redux";
-import { GetListMusic } from "../redux/action/playMusic";
+import { useDispatch, useSelector } from "react-redux";
+import { ActionConstant } from "../constant/common";
+import axios from "axios";
 const { Header, Footer, Sider } = Layout;
 const { Option } = Select;
 function getItem(label, key, icon) {
@@ -29,17 +30,14 @@ const items = [
 ];
 
 const DefaultLayoutMusicPage = () => {
-  const { isLoading } = useLoading(true, 3800);
+  // const [loading, setLoading] = useState(true);
+  const { isLoading } = useLoading(true, 1800);
   const [changePage, setChangePage] = useState("1");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(GetListMusic());
-  }, []);
 
-  const state = useState((state) => state);
-  console.log(state);
-
+  //-------------------------------------------------------------
+  // const data = useSelector((state) => state.GetListMusicReducer);
+  // useEffect(() => setLoading(false), data);
   // --------------------------------------------------------------------------------
   return (
     <>
@@ -48,7 +46,10 @@ const DefaultLayoutMusicPage = () => {
           minHeight: "84vh",
         }}
       >
-        <Sider className="bg-white shadow-2xl  ">
+        <Sider
+          className="bg-white shadow-2xl  "
+          style={{ backgroundColor: "black" }}
+        >
           <div className="logo pb-12">
             <img
               width={800}
@@ -66,6 +67,7 @@ const DefaultLayoutMusicPage = () => {
               className="text-white"
               selectedKeys={[changePage]}
               onClick={(e) => setChangePage(e.key)}
+              style={{ backgroundColor: "black" }}
             />
           </div>
         </Sider>
@@ -77,6 +79,7 @@ const DefaultLayoutMusicPage = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              backgroundColor: "#181211",
             }}
           >
             <div className="w-96 ">
@@ -99,19 +102,19 @@ const DefaultLayoutMusicPage = () => {
           <Content
             style={{
               padding: "16px",
-              backgroundColor: "#001529",
+              backgroundColor: "#121212",
               overflow: "scroll",
             }}
           >
             <div
               style={{
-                backgroundColor: "#001529",
+                backgroundColor: "#121212",
                 maxHeight: "10pc",
               }}
             >
               {isLoading && <LoadingLoad />}
               {!isLoading && (
-                <Outlet className="transition ease-in-out delay-800" />
+                <Outlet className="transition ease-in-out delay-1800" />
               )}
             </div>
           </Content>
@@ -121,7 +124,7 @@ const DefaultLayoutMusicPage = () => {
         className="bg-black"
         style={{
           minHeight: "16vh",
-          backgroundColor: "black",
+          backgroundColor: "#181818",
           display: "flex",
           flexDirection: "row",
         }}
@@ -133,6 +136,7 @@ const DefaultLayoutMusicPage = () => {
             layout="stacked-reverse"
             showSkipControls={true}
             showJumpControls={false}
+            style={{ backgroundColor: "#181818" }}
           />
         </div>
       </Footer>
