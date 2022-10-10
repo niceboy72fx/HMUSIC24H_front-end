@@ -27,7 +27,7 @@ const MusicRoute = () => {
       <Routes>
         <Route element={<DefaultLayoutMusicPage />}>
           <Route path="" element={<HomeMusicsPage props={tempData} />} />
-          <Route path="/search" element={<FindMusicPage />} />
+          <Route path="/search" element={<FindMusicPage props={tempData} />} />
           <Route path="/country" element={<CountryMusicPage />} />
           <Route path="/top50" element={<Top50MusicPage />} />
           <Route path="/typeMusic" element={<TypeMusicPage />} />

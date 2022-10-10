@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   background-color: #181818;
+  position: relative;
 }
 
 .Card-image {
@@ -29,14 +30,13 @@
   width: 100%;
   color: white;
   padding: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: left;
+  display: fixed;
 }
 
 .Card-play {
   position: absolute;
   top: 48%;
+  display: fixed;
 }
 
 .play-button {

@@ -8,8 +8,8 @@ import "react-h5-audio-player/lib/styles.css";
 import { Content } from "antd/lib/layout/layout";
 import AudioPlayer from "react-h5-audio-player";
 import { useDispatch, useSelector } from "react-redux";
+import { GetSearchData } from "../redux/action/searchAction";
 import { ActionConstant } from "../constant/common";
-import axios from "axios";
 const { Header, Footer, Sider } = Layout;
 const { Option } = Select;
 function getItem(label, key, icon) {
@@ -39,6 +39,61 @@ const DefaultLayoutMusicPage = () => {
   // const data = useSelector((state) => state.GetListMusicReducer);
   // useEffect(() => setLoading(false), data);
   // --------------------------------------------------------------------------------
+  // tạo mới component random Music
+  //---------------------------------------------------------------------------------
+  //---------Dispatch---
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: ActionConstant.GETALLMUSICACTION });
+  }, []);
+
+  //---------debug
+  const tempData = [];
+  const temp = useSelector((state) => state.GetListMusicReducer);
+  const { provider } = temp;
+  provider && provider?.data?.map((temp) => tempData?.push(temp));
+
+  //---------random musicName
+  const array = [];
+  const randomFunc = (arr, num) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
+  };
+
+  const randomMusic = randomFunc(tempData, tempData.length);
+
+  for (let i = 0; i < tempData.length; i++) {
+    const test = { ...randomMusic[i], stt: i };
+    array?.push(test);
+  }
+
+  console.log(array);
+
+  //--------------------------------Control music------------------------------\
+  const [songs, setSong] = useState?.(array[0]);
+  const handleSetSong = (idSong) => {
+    const song = array.find((song) => song.stt === idSong);
+    if (!song) {
+      setSong(array[0]);
+    } else {
+      setSong(song);
+    }
+  };
+
+  console.log(songs);
+  console.log(array[0]);
+
+  const handleClickNext = () => {
+    handleSetSong(songs.stt + 1);
+  };
+  const handleClickPre = () => {
+    handleSetSong(songs.stt - 1);
+  };
+  // //---------------------------------------------------------------------------------
+
+  const handleData = (data) => {
+    dispatch(GetSearchData(data));
+  };
   return (
     <>
       <Layout
@@ -94,6 +149,7 @@ const DefaultLayoutMusicPage = () => {
                     className="w-full borber-none "
                     placeholder="Tìm kiếm bài hát"
                     options={[]}
+                    onChange={(e) => handleData(e)}
                   />
                 </Input.Group>
               </NavLink>
@@ -129,14 +185,27 @@ const DefaultLayoutMusicPage = () => {
           flexDirection: "row",
         }}
       >
-        <div className=" flex justify-center text-white w-1/5">info song</div>
+        <div className=" flex  text-white w-1/5">
+          <img
+            src="https://res.cloudinary.com/dluoimlhn/image/upload/v1664547696/Korea/DDUDU%20DDUDU/DDUDU_DDUDU_hxu0je.jpg"
+            alt=""
+            className="w-24 h-24 rounded-full"
+          />
+          <div className=" p-4 w-full h-24 ">
+            <p className="text-2xl font-bold mb-0 truncate">Hello World</p>
+            <p className="truncate">Author</p>
+          </div>
+        </div>
         <div className="control-song w-3/4">
           <AudioPlayer
             className="w-full"
             layout="stacked-reverse"
             showSkipControls={true}
-            showJumpControls={false}
-            style={{ backgroundColor: "#181818" }}
+            showJumpControls={true}
+            onClickNext={handleClickNext}
+            onClickPrevious={handleClickPre}
+            // src={song.filePath}
+            style={{ backgroundColor: "#181818", color: "white" }}
           />
         </div>
       </Footer>
