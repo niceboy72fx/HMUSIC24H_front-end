@@ -9,6 +9,7 @@ export const ListennerWant = ({ props }) => {
   };
 
   const random20Music = randomFunc(props, 20);
+
   return (
     <div className="p-5 flex text-center w-full ">
       <CommonsSlider props={random20Music} />

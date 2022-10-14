@@ -8,7 +8,6 @@ import {
 } from "../../action/common";
 
 export function* GetListDataMusic() {
-  console.log("hello4");
   //bug
   const listMusic = yield call(() => FetchGetAllMusic());
   //-------------
