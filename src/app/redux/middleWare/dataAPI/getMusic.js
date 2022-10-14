@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ActionConstant } from "../../../constant/common";
 import { FetchGetAllMusic } from "../../../utils/api/apiServices";
 import {
@@ -8,14 +8,13 @@ import {
 } from "../../action/common";
 
 export function* GetListDataMusic() {
-  console.log("hello4");
   //bug
   const listMusic = yield call(() => FetchGetAllMusic());
   //-------------
-  yield put(GetListMusicSuccess(listMusic?.data));
+  yield put(GetListMusicSuccess(listMusic.data.data));
 }
 
 //----------------------------------------------------------------
 export function* WatchListMusic() {
-  yield takeEvery(ActionConstant.GETALLMUSICACTION, GetListDataMusic);
+  yield takeLatest(ActionConstant.GETALLMUSICACTION, GetListDataMusic);
 }
